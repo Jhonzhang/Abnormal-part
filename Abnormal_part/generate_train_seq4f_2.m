@@ -8,7 +8,7 @@ function result = generate_train_seq4f_2(Dim, T0, N, Or, MT, D, Or_abnormal, MT_
 %    ub = [150,50,20];
     M_max = 150;
     en = 50;
-    r = 20;
+    r = 20;%test
     fprintf("The test parameters: M:%d,en:%d,r:%d\n", M_max, en,r);
     ub = [M_max,en,r];
     cnt_ga = 0;
