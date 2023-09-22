@@ -6,7 +6,8 @@ from load_data_without_traffic import *
 import numpy as np
 import math
 from likelihood_distribution_view_one import fig_one_diagram
-# sys.path.append('../')
+import sys
+sys.path.append('.')
 np.seterr(divide='ignore', invalid='ignore')
 np.set_printoptions(suppress=True)
 np.set_printoptions(threshold=np.inf)
@@ -21,14 +22,14 @@ def comprise_np_to_list(np_datasets):
 if __name__ == "__main__":
     """只把真实数据，输入到generate_test_seq中，不用python重写其功能函数。"""
     eng = matlab.engine.start_matlab()  # start matlab env
-    eng.cd(r'/home/ztf/Abnormal_part', nargout=0)  # 这个文件夹很重要啊！一定要是当前路径
+    eng.cd(r'/home/ztf/Abnormal-part/Abnormal_part', nargout=0)  # 这个文件夹很重要啊！一定要是当前路径
     for i in range(2):
         retraining_bool = 1 #True  # 是否重写训练HsMM
         if retraining_bool:
             # print("START training! :", now_time_str())
             # load normal data
             # load_data_tmp_name = 'load_data_without_traffic_dat'
-            load_normal_dataset = 'normal_dataset_np'
+            load_normal_dataset = 'data/normal_dataset_np'
             Or, durations, N = load_data_mul2(load_normal_dataset, over_load=False)
             # print("加载数据集完成！")
             # Or, durations, N = load_data_mul_without_traffic(load_data_tmp_name, over_load=False)
@@ -40,7 +41,7 @@ if __name__ == "__main__":
             MT = [900, 601, 601, 601, 601, 660, 660, 660, 660, 301, 840]  # length of each sub-sequence
             MT_index = list(range(N)) #产生序列的索引
             # MT_index_copy = MT_index
-            for MT_test_index in MT_index[0:]:
+            for MT_test_index in MT_index[5:]:
                 i_th = MT_index.index(MT_test_index)
                 print("---------This is the "+ str(i_th + 1) + " 'normal training!----------ztf5-")
                 MT_index_copy = MT_index.copy() # 每次建立一个副本
@@ -69,7 +70,7 @@ if __name__ == "__main__":
                 D = 5
                 T0 = 900
                 
-                load_abnormal_dataset = 'abnormal_dataset_np'
+                load_abnormal_dataset = 'data/abnormal_dataset_np'
                 Or_abnormal, durations_abnormal, N_abnormal =  load_data_mul_abnormal2(load_abnormal_dataset, over_load=False)
                 MT_abnormal = [300, 300, 300, 300, 180, 180, 180, 180, 180]
                 MT_abnormal = matlab.double(MT_abnormal)
