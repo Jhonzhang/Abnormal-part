@@ -122,7 +122,7 @@ function result = generate_train_seq4f_2(Dim, T0, N, Or, MT, D, Or_abnormal, MT_
         mino = min(Orn, [], 1);
         Orn = Orn - repmat(mino, size(Orn, 1), 1);
         maxo = max(Orn, [], 1);
-        % maxo(maxo == 0) = 0.01;
+        maxo(maxo == 0) = 1;
         All_min_max = [mino; maxo];
         Orn = Orn ./ repmat(maxo, size(Orn, 1), 1);
         Orn(isnan(Orn)) = 0;

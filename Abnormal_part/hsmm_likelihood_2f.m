@@ -64,7 +64,9 @@ function Loglikelihood = hsmm_likelihood_2f(A, B, P, PI, D, K, M, MO, MT, N,T0,r
         %---------------    Initialization    ---------------
         ALPHA = zeros(M, D + 1); % the forward variable
         ALPHA(:, 1:D) = repmat((PI .* B(:, O(1))), 1, D) .* P; % Equ.(3)
-        ALPHA(isnan(ALPHA)) = 0;
+        % ALPHA(isnan(ALPHA)) = 0;
+        ALPHA(isnan(ALPHA)) = exp(-16);
+        ALPHA(ALPHA <= 0) = exp(-16);
         c = ones(T, 1);
         % if any(isnan(ALPHA),'all')
         %     disp('1yes NaN!');
@@ -104,7 +106,9 @@ function Loglikelihood = hsmm_likelihood_2f(A, B, P, PI, D, K, M, MO, MT, N,T0,r
             EL = EL .* P;
             EL(isnan(EL)) = 0;
             ALPHA(:, 1:D) = ALPHA(:, 2:D + 1) .* repmat(B(:, O(t)), 1, D) + EL; %Equ.(2)
-            ALPHA(isnan(ALPHA)) = 0;
+            % ALPHA(isnan(ALPHA)) = 0;
+            ALPHA(isnan(ALPHA)) = exp(-16);
+            ALPHA(ALPHA <= 0) = exp(-16);
             % if any(isnan(EL),'all')
             %     disp('EL yes NaN!');
             % % else
